@@ -34,7 +34,28 @@ function Provider({ children }) {
     });
   };
 
-  const value = { data, filters, handleFilter, handleFilterNumeric };
+  const removeFilter = (nameCollumn) => {
+    setFilters({
+      ...filters,
+      filterByNumericValues: filters.filterByNumericValues.filter(
+        ({ column }) => column !== nameCollumn,
+      ),
+    });
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      ...filters,
+      filterByNumericValues: [],
+    });
+  };
+
+  const value = { data,
+    filters,
+    handleFilter,
+    handleFilterNumeric,
+    removeFilter,
+    clearFilters };
   return (
     <planetsContext.Provider value={ value }>
       {children}
