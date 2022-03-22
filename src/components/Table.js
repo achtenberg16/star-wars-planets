@@ -1,15 +1,30 @@
 import React, { useContext } from 'react';
 import planetsContext from '../context/planetsContext';
 
+const TABLE_HEADERS = ['Name', 'Rotation Period',
+  'Orbital Period', 'Diameter', 'Climate', 'Gravity',
+  'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'Url'];
+
 function Table() {
   const { data = [], filters } = useContext(planetsContext);
-  const { filterByName: { name } } = filters;
+  const { filterByName: { name }, filterByNumericValues } = filters;
 
-  const resultsFiltered = data.filter((planet) => planet.name.includes(name));
-
-  const TABLE_HEADERS = ['Name', 'Rotation Period',
-    'Orbital Period', 'Diameter', 'Climate', 'Gravity',
-    'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'Url'];
+  let resultsFiltered = data.filter((planet) => planet.name.includes(name));
+  filterByNumericValues.forEach(({ column, value, comparison }) => {
+    resultsFiltered = resultsFiltered.filter((planet) => {
+      switch (comparison) {
+      case 'maior que': {
+        return +planet[column] > +value; }
+      case 'menor que': {
+        return +planet[column] < +value;
+      }
+      case 'igual a': {
+        return +planet[column] === +value;
+      }
+      default: return true;
+      }
+    });
+  });
 
   return (
     <table>

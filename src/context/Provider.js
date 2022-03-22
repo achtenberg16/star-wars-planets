@@ -21,14 +21,20 @@ function Provider({ children }) {
   }, []);
 
   const handleFilter = ({ target: { value } }) => {
-    console.log(value);
     setFilters({
       ...filters,
       filterByName: { name: value },
     });
   };
 
-  const value = { data, filters, handleFilter };
+  const handleFilterNumeric = (optionsObject) => {
+    setFilters({
+      ...filters,
+      filterByNumericValues: [...filters.filterByNumericValues, optionsObject],
+    });
+  };
+
+  const value = { data, filters, handleFilter, handleFilterNumeric };
   return (
     <planetsContext.Provider value={ value }>
       {children}
