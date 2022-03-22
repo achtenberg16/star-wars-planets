@@ -3,18 +3,31 @@ import PropTypes from 'prop-types';
 import planetsContext from './planetsContext';
 
 function Provider({ children }) {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
+  const [filters, setFilters] = useState({
+    filterByName: {
+      name: '',
+    },
+  });
 
   useEffect(() => {
     (async () => {
       const ENDPOINT = 'https://swapi-trybe.herokuapp.com/api/planets/';
       const request = await fetch(ENDPOINT);
       const response = await request.json();
-      setData(response);
+      setData(response.results);
     })();
   }, []);
 
-  const value = { data };
+  const handleFilter = ({ target: { value } }) => {
+    console.log(value);
+    setFilters({
+      ...filters,
+      filterByName: { name: value },
+    });
+  };
+
+  const value = { data, filters, handleFilter };
   return (
     <planetsContext.Provider value={ value }>
       {children}

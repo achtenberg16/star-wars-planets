@@ -2,11 +2,15 @@ import React, { useContext } from 'react';
 import planetsContext from '../context/planetsContext';
 
 function Table() {
-  const { data: { results } } = useContext(planetsContext);
+  const { data = [], filters } = useContext(planetsContext);
+  const { filterByName: { name } } = filters;
+
+  const resultsFiltered = data.filter((planet) => planet.name.includes(name));
 
   const TABLE_HEADERS = ['Name', 'Rotation Period',
     'Orbital Period', 'Diameter', 'Climate', 'Gravity',
     'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'Url'];
+
   return (
     <table>
       <thead>
@@ -17,8 +21,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-
-        {results?.length && (results.map((planet) => {
+        {(resultsFiltered.length > 0) && (resultsFiltered.map((planet) => {
           const { rotation_period: rotation,
             orbital_period: orbital, surface_water: surface } = planet;
 
