@@ -1,9 +1,6 @@
 import React, { useContext } from 'react';
 import planetsContext from '../context/planetsContext';
-
-const TABLE_HEADERS = ['Name', 'Rotation Period',
-  'Orbital Period', 'Diameter', 'Climate', 'Gravity',
-  'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'Url'];
+import { TABLE_HEADERS } from '../DataConsts';
 
 function Table() {
   const { data = [], filters,
@@ -49,7 +46,8 @@ function Table() {
       <tbody>
         {(resultsFiltered.length > 0) && (resultsFiltered.map((planet) => {
           const { rotation_period: rotation,
-            orbital_period: orbital, surface_water: surface } = planet;
+            orbital_period: orbital,
+            surface_water: surface } = planet;
 
           return (
             <tr key={ planet.name }>

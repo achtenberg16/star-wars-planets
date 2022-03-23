@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import planetsContext from './planetsContext';
+import { ENDPOINT, INITIAL_FILTER_STATE, INITIAL_SORT_STATE } from '../DataConsts';
 
 function Provider({ children }) {
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState({
-    filterByName: {
-      name: '',
-    },
-    filterByNumericValues: [],
-  });
-  const [order, setOrder] = useState({ column: 'name', sort: 'ASC' });
+  const [filters, setFilters] = useState(INITIAL_FILTER_STATE);
+  const [order, setOrder] = useState(INITIAL_SORT_STATE);
 
   useEffect(() => {
     (async () => {
-      const ENDPOINT = 'https://swapi-trybe.herokuapp.com/api/planets/';
       const request = await fetch(ENDPOINT);
       const response = await request.json();
       setData(response.results);
@@ -35,19 +30,14 @@ function Provider({ children }) {
     });
   };
 
-  const removeFilter = (nameCollumn) => {
+  const removeFilter = (nameCollumn = 'clear filters') => {
     setFilters({
       ...filters,
-      filterByNumericValues: filters.filterByNumericValues.filter(
-        ({ column }) => column !== nameCollumn,
+      filterByNumericValues: nameCollumn === 'clear filters' ? [] : (
+        filters.filterByNumericValues.filter(
+          ({ column }) => column !== nameCollumn,
+        )
       ),
-    });
-  };
-
-  const clearFilters = () => {
-    setFilters({
-      ...filters,
-      filterByNumericValues: [],
     });
   };
 
@@ -56,7 +46,6 @@ function Provider({ children }) {
     handleFilter,
     handleFilterNumeric,
     removeFilter,
-    clearFilters,
     setOrder,
     order,
   };

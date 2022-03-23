@@ -3,7 +3,7 @@ import planetsContext from '../context/planetsContext';
 
 export default function FiltersInUse() {
   const { filters: { filterByNumericValues },
-    removeFilter, clearFilters } = useContext(planetsContext);
+    removeFilter } = useContext(planetsContext);
   return (
     <>
       <div>
@@ -27,7 +27,7 @@ export default function FiltersInUse() {
       <button
         type="button"
         data-testid="button-remove-filters"
-        onClick={ clearFilters }
+        onClick={ () => { removeFilter(); } }
       >
         Remover Todas as filtragens
 
