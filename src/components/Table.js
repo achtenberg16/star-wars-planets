@@ -9,7 +9,7 @@ function Table() {
     values.map((value, index) => (
       <td
         key={ `${value}${index}` }
-        data-testid={ conditionTestId === index ? testId : '' }
+        data-testid={ conditionTestId === index ? testId : null }
       >
         {value}
       </td>

@@ -1,19 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import planetsContext from '../context/planetsContext';
-
-const OPTIONS_COLLUMN = ['population', 'orbital_period',
-  'diameter', 'rotation_period', 'surface_water'];
-const OPERATOR_OPTIONS = ['maior que', 'menor que', 'igual a'];
-const INITIAL_FILTER_NUMERIC = {
-  column: '',
-  comparison: 'maior que',
-  value: 0,
-};
+import { OPTIONS_COLLUMN, OPERATOR_OPTIONS, INITIAL_FILTER_NUMERIC } from '../DataConsts';
 
 function Filters() {
-  const [filterNumeric, setFilterNumeric] = useState({ column: 'population',
-    comparison: 'maior que',
-    value: 0 });
+  const [filterNumeric, setFilterNumeric] = useState(
+    { column: 'population', comparison: 'maior que', value: 0 },
+  );
   const [optionsColumn, setOptionsColumn] = useState(OPTIONS_COLLUMN);
   const [orderOptions, setOrderOptions] = useState({ column: 'name', sort: 'ASC' });
 
@@ -25,16 +17,17 @@ function Filters() {
     handleFilterNumeric, setOrder } = useContext(planetsContext);
   const { filterByName: { name }, filterByNumericValues } = filters;
 
-  const handleSubmitOrder = (e) => {
-    e.preventDefault();
-    setOrder(orderOptions);
-  };
   useEffect(() => {
     const optionsColumnFilters = OPTIONS_COLLUMN
       .filter((option) => !filterByNumericValues.some(({ column }) => column === option));
     setOptionsColumn(optionsColumnFilters);
     setFilterNumeric((prevState) => ({ ...prevState, column: optionsColumnFilters[0] }));
   }, [filterByNumericValues]);
+
+  const handleSubmitOrder = (e) => {
+    e.preventDefault();
+    setOrder(orderOptions);
+  };
 
   const handleChange = ({ target }) => {
     setFilterNumeric({

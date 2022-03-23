@@ -11,7 +11,7 @@ export default function FiltersInUse() {
           filterByNumericValues.map(({ column, comparison, value }) => (
             <label
               data-testid="filter"
-              key={ column }
+              key={ `${column} ${comparison} ${value}` }
               htmlFor={ column }
             >
               <button

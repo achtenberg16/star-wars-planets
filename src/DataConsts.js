@@ -12,3 +12,14 @@ export const INITIAL_FILTER_STATE = {
 };
 
 export const INITIAL_SORT_STATE = { column: 'name', sort: 'ASC' };
+
+export const OPTIONS_COLLUMN = ['population', 'orbital_period',
+  'diameter', 'rotation_period', 'surface_water'];
+
+export const OPERATOR_OPTIONS = ['maior que', 'menor que', 'igual a'];
+
+export const INITIAL_FILTER_NUMERIC = {
+  column: '',
+  comparison: 'maior que',
+  value: 0,
+};

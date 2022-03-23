@@ -9,7 +9,6 @@ function usePlanenetsFilter() {
   const { filterByName: { name }, filterByNumericValues } = filters;
 
   useEffect(() => {
-    console.log('rodou useeffect');
     let planetsAfterFilter = data.filter((planet) => planet.name.includes(name));
     filterByNumericValues.forEach(({ column, value, comparison }) => {
       planetsAfterFilter = planetsAfterFilter.filter((planet) => {
