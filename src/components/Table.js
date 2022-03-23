@@ -6,10 +6,12 @@ const TABLE_HEADERS = ['Name', 'Rotation Period',
   'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'Url'];
 
 function Table() {
-  const { data = [], filters } = useContext(planetsContext);
+  const { data = [], filters,
+    order: { column: columnSort, sort } } = useContext(planetsContext);
   const { filterByName: { name }, filterByNumericValues } = filters;
 
   let resultsFiltered = data.filter((planet) => planet.name.includes(name));
+
   filterByNumericValues.forEach(({ column, value, comparison }) => {
     resultsFiltered = resultsFiltered.filter((planet) => {
       switch (comparison) {
@@ -24,6 +26,15 @@ function Table() {
       default: return true;
       }
     });
+  });
+
+  // foi discutido com Rafael França para entender funcionamento do sort
+  resultsFiltered.sort((a, b) => {
+    if (columnSort === 'name') return a.name.localeCompare(b.name);
+    if (a[columnSort] === 'unknown') return 1;
+    if (b[columnSort] === 'unknown') return +'-1';
+    if (sort === 'ASC') return a[columnSort] - b[columnSort];
+    return b[columnSort] - a[columnSort];
   });
 
   return (
@@ -42,7 +53,7 @@ function Table() {
 
           return (
             <tr key={ planet.name }>
-              <td>{planet.name}</td>
+              <td data-testid="planet-name">{planet.name}</td>
               <td>{rotation}</td>
               <td>{orbital}</td>
               <td>{planet.diameter}</td>

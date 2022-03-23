@@ -10,6 +10,7 @@ function Provider({ children }) {
     },
     filterByNumericValues: [],
   });
+  const [order, setOrder] = useState({ column: 'name', sort: 'ASC' });
 
   useEffect(() => {
     (async () => {
@@ -55,7 +56,10 @@ function Provider({ children }) {
     handleFilter,
     handleFilterNumeric,
     removeFilter,
-    clearFilters };
+    clearFilters,
+    setOrder,
+    order,
+  };
   return (
     <planetsContext.Provider value={ value }>
       {children}

@@ -15,10 +15,20 @@ function Filters() {
     comparison: 'maior que',
     value: 0 });
   const [optionsColumn, setOptionsColumn] = useState(OPTIONS_COLLUMN);
+  const [orderOptions, setOrderOptions] = useState({ column: 'name', sort: 'ASC' });
 
-  const { handleFilter, filters, handleFilterNumeric } = useContext(planetsContext);
+  const handleOrderOptions = ({ target: { name, value } }) => {
+    setOrderOptions((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const { handleFilter, filters,
+    handleFilterNumeric, setOrder } = useContext(planetsContext);
   const { filterByName: { name }, filterByNumericValues } = filters;
 
+  const handleSubmitOrder = (e) => {
+    e.preventDefault();
+    setOrder(orderOptions);
+  };
   useEffect(() => {
     const optionsColumnFilters = OPTIONS_COLLUMN
       .filter((option) => !filterByNumericValues.some(({ column }) => column === option));
@@ -95,6 +105,62 @@ function Filters() {
         />
         <button data-testid="button-filter" type="submit">Filtrar</button>
       </form>
+
+      <form type="submit" onSubmit={ handleSubmitOrder }>
+        <label htmlFor="collumnSort">
+          Ordenar
+          <select
+            data-testid="column-sort"
+            value={ orderOptions.column }
+            name="column"
+            onChange={ handleOrderOptions }
+            id="collumnSort"
+          >
+            {
+              OPTIONS_COLLUMN.map((optionName) => (
+                <option value={ optionName } key={ optionName }>
+                  {optionName}
+                </option>
+              ))
+            }
+          </select>
+        </label>
+
+        <label htmlFor="sortAsc">
+          Ascendente
+          <input
+            defaultChecked
+            type="radio"
+            value="ASC"
+            name="sort"
+            id="sortAsc"
+            onChange={ handleOrderOptions }
+            data-testid="column-sort-input-asc"
+          />
+        </label>
+
+        <label htmlFor="sortDsc">
+          Desscendente
+          <input
+            type="radio"
+            value="DESC"
+            name="sort"
+            data-testid="column-sort-input-desc"
+            id="sortDsc"
+            onChange={ handleOrderOptions }
+          />
+        </label>
+
+        <button
+          type="submit"
+          data-testid="column-sort-button"
+        >
+          Ordenar
+
+        </button>
+
+      </form>
+
     </div>
   );
 }
