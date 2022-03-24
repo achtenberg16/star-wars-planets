@@ -16,14 +16,11 @@ function Provider({ children }) {
     })();
   }, []);
 
-  const handleFilter = ({ target: { value } }) => {
-    setFilters({
-      ...filters,
-      filterByName: { name: value },
-    });
+  const setNameForFilter = ({ target: { value } }) => {
+    setFilters({ ...filters, filterByName: { name: value } });
   };
 
-  const handleFilterNumeric = (optionsObject) => {
+  const setFilterNumericInContex = (optionsObject) => {
     setFilters({
       ...filters,
       filterByNumericValues: [...filters.filterByNumericValues, optionsObject],
@@ -33,18 +30,19 @@ function Provider({ children }) {
   const removeFilter = (nameCollumn = 'clear filters') => {
     setFilters({
       ...filters,
-      filterByNumericValues: nameCollumn === 'clear filters' ? [] : (
-        filters.filterByNumericValues.filter(
-          ({ column }) => column !== nameCollumn,
-        )
-      ),
+      filterByNumericValues: nameCollumn === 'clear filters' ? []
+        : (
+          filters.filterByNumericValues.filter(
+            ({ column }) => column !== nameCollumn,
+          )
+        ),
     });
   };
 
   const value = { data,
     filters,
-    handleFilter,
-    handleFilterNumeric,
+    setNameForFilter,
+    setFilterNumericInContex,
     removeFilter,
     setOrder,
     order,
