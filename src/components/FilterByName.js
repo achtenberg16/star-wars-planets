@@ -5,8 +5,10 @@ export default function FilterByName() {
   const { setNameForFilter, filters } = useContext(planetsContext);
   const { filterByName: { name } } = filters;
   return (
-    <label htmlFor="nameInput">
-      Filtrar por nome:
+    <label
+      htmlFor="nameInput"
+    >
+      Projeto Star Wars - Trybe
       <input
         data-testid="name-filter"
         id="nameInput"

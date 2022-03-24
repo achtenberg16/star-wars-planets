@@ -9,7 +9,9 @@ function usePlanenetsFilter() {
   const { filterByName: { name }, filterByNumericValues } = filters;
 
   useEffect(() => {
-    let planetsAfterFilter = data.filter((planet) => planet.name.includes(name));
+    let planetsAfterFilter = data.filter((planet) => (
+      planet.name.toLowerCase().includes(name.toLowerCase())));
+
     filterByNumericValues.forEach(({ column, value, comparison }) => {
       planetsAfterFilter = planetsAfterFilter.filter((planet) => {
         switch (comparison) {

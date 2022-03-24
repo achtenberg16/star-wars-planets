@@ -8,7 +8,9 @@ function Filters() {
   return (
     <>
       <section>
-        <FilterByName />
+        <div>
+          <FilterByName />
+        </div>
         <FiltersNumerics />
         <OrderOptions />
       </section>

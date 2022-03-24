@@ -1,6 +1,7 @@
 import React from 'react';
 import { TABLE_HEADERS } from '../DataConsts';
 import usePlanenetsFilter from '../hooks/usePlanenetsFilter';
+import { TableStyled, TheadStyled } from '../styles/StylesTable';
 
 function Table() {
   const [planetsFiltered] = usePlanenetsFilter();
@@ -16,9 +17,9 @@ function Table() {
     )));
 
   return (
-    <table>
+    <TableStyled>
 
-      <thead>
+      <TheadStyled>
         <tr>
           {
             TABLE_HEADERS.map((header) => (
@@ -26,7 +27,7 @@ function Table() {
             ))
           }
         </tr>
-      </thead>
+      </TheadStyled>
 
       <tbody>
         {
@@ -42,7 +43,7 @@ function Table() {
         }
       </tbody>
 
-    </table>
+    </TableStyled>
   );
 }
 

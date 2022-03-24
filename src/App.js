@@ -1,14 +1,16 @@
 import React from 'react';
-import './App.css';
 import Provider from './context/Provider';
 import Table from './components/Table';
 import Filters from './components/Filters';
+import { MainContainer } from './styles/StylesApp';
 
 function App() {
   return (
     <Provider>
-      <Filters />
-      <Table />
+      <MainContainer>
+        <Filters />
+        <Table />
+      </MainContainer>
     </Provider>
   );
 }
