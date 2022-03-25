@@ -1,7 +1,6 @@
 import React from 'react';
 import { TABLE_HEADERS } from '../DataConsts';
 import usePlanenetsFilter from '../hooks/usePlanenetsFilter';
-import { TableStyled, TheadStyled } from '../styles/StylesTable';
 
 function Table() {
   const [planetsFiltered] = usePlanenetsFilter();
@@ -17,9 +16,9 @@ function Table() {
     )));
 
   return (
-    <TableStyled>
+    <table>
 
-      <TheadStyled>
+      <thead>
         <tr>
           {
             TABLE_HEADERS.map((header) => (
@@ -27,11 +26,11 @@ function Table() {
             ))
           }
         </tr>
-      </TheadStyled>
+      </thead>
 
       <tbody>
         {
-          (planetsFiltered.length > 0) && (planetsFiltered.map((planetActual) => {
+          planetsFiltered.map((planetActual) => {
             delete planetActual.residents;
             const values = Object.values(planetActual);
             return (
@@ -39,11 +38,11 @@ function Table() {
                 {createElementsHtml(values, 0, 'planet-name')}
               </tr>
             );
-          }))
+          })
         }
       </tbody>
 
-    </TableStyled>
+    </table>
   );
 }
 
